@@ -34,8 +34,23 @@ moveit = { version = "0.5", features = [ "cxx" ] }
 members = ["parser", "engine", "gen/cmd", "gen/build", "macro", "demo", "tools/reduce", "tools/mdbook-preprocessor", "integration-tests"]
 exclude = ["examples/s2", "examples/steam-mini", "examples/subclass", "examples/chromium-fake-render-frame-host", "examples/pod", "examples/non-trivial-type-on-stack", "examples/llvm", "examples/reference-wrappers", "examples/cpp_calling_rust", "tools/stress-test"]
 
-#[patch.crates-io]
-#cxx = { path="../cxx" }
-#cxx-gen = { path="../cxx/gen/lib" }
-#autocxx-bindgen = { path="../bindgen" }
-#moveit = { path="../moveit" }
+[package.metadata.raze]
+workspace_path = "//cargo"
+targets = [
+    "x86_64-unknown-linux-gnu",
+]
+output_buildfile_suffix = "BUILD.bazel"
+genmode = "Vendored"
+package_aliases_dir = "cargo"
+
+[package.metadata.raze.crates.supports-unicode.'*']
+compile_data_attr = "glob([\"README.md\"])"
+
+[package.metadata.raze.crates.supports-hyperlinks.'*']
+compile_data_attr = "glob([\"README.md\"])"
+
+[package.metadata.raze.crates.cxx-gen.'*']
+compile_data_attr = "glob([\"src/gen/include/cxx.h\"])"
+
+[package.metadata.raze.crates.clap.'*']
+compile_data_attr = "glob([\"examples/demo.md\"])"

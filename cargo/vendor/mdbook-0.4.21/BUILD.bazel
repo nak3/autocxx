@@ -1,0 +1,129 @@
+"""
+@generated
+cargo-raze crate build file.
+
+DO NOT EDIT! Replaced on runs of cargo-raze
+"""
+
+# buildifier: disable=load
+load("@bazel_skylib//lib:selects.bzl", "selects")
+
+# buildifier: disable=load
+load(
+    "@rules_rust//rust:defs.bzl",
+    "rust_binary",
+    "rust_library",
+    "rust_proc_macro",
+    "rust_test",
+)
+
+package(default_visibility = [
+    # Public for visibility by "@raze__crate__version//" targets.
+    #
+    # Prefer access through "//cargo", which limits external
+    # visibility to explicit Cargo.toml dependencies.
+    "//visibility:public",
+])
+
+licenses([
+    "reciprocal",  # MPL-2.0 from expression "MPL-2.0"
+])
+
+# Generated Targets
+
+rust_binary(
+    # Prefix bin name to disambiguate from (probable) collision with lib name
+    # N.B.: The exact form of this is subject to change.
+    name = "cargo_bin_mdbook",
+    srcs = glob(["**/*.rs"]),
+    crate_root = "src/main.rs",
+    data = [],
+    edition = "2018",
+    rustc_flags = [
+        "--cap-lints=allow",
+    ],
+    tags = [
+        "cargo-raze",
+        "crate-name=mdbook",
+        "manual",
+    ],
+    version = "0.4.21",
+    # buildifier: leave-alone
+    deps = [
+        "//cargo/vendor/anyhow-1.0.66:anyhow",
+        "//cargo/vendor/chrono-0.4.22:chrono",
+        "//cargo/vendor/clap-3.2.23:clap",
+        "//cargo/vendor/clap_complete-3.2.5:clap_complete",
+        "//cargo/vendor/env_logger-0.9.1:env_logger",
+        "//cargo/vendor/handlebars-4.3.5:handlebars",
+        "//cargo/vendor/lazy_static-1.4.0:lazy_static",
+        "//cargo/vendor/log-0.4.17:log",
+        "//cargo/vendor/memchr-2.5.0:memchr",
+        "//cargo/vendor/opener-0.5.0:opener",
+        "//cargo/vendor/pulldown-cmark-0.9.2:pulldown_cmark",
+        "//cargo/vendor/regex-1.6.0:regex",
+        "//cargo/vendor/serde-1.0.147:serde",
+        "//cargo/vendor/serde_json-1.0.87:serde_json",
+        "//cargo/vendor/shlex-1.1.0:shlex",
+        "//cargo/vendor/tempfile-3.3.0:tempfile",
+        "//cargo/vendor/toml-0.5.9:toml",
+        "//cargo/vendor/topological-sort-0.1.0:topological_sort",
+        ":mdbook",
+    ],
+)
+
+# Unsupported target "nop-preprocessor" with type "example" omitted
+
+rust_library(
+    name = "mdbook",
+    srcs = glob(["**/*.rs"]),
+    crate_root = "src/lib.rs",
+    data = [],
+    edition = "2018",
+    rustc_flags = [
+        "--cap-lints=allow",
+    ],
+    tags = [
+        "cargo-raze",
+        "crate-name=mdbook",
+        "manual",
+    ],
+    version = "0.4.21",
+    # buildifier: leave-alone
+    deps = [
+        "//cargo/vendor/anyhow-1.0.66:anyhow",
+        "//cargo/vendor/chrono-0.4.22:chrono",
+        "//cargo/vendor/clap-3.2.23:clap",
+        "//cargo/vendor/clap_complete-3.2.5:clap_complete",
+        "//cargo/vendor/env_logger-0.9.1:env_logger",
+        "//cargo/vendor/handlebars-4.3.5:handlebars",
+        "//cargo/vendor/lazy_static-1.4.0:lazy_static",
+        "//cargo/vendor/log-0.4.17:log",
+        "//cargo/vendor/memchr-2.5.0:memchr",
+        "//cargo/vendor/opener-0.5.0:opener",
+        "//cargo/vendor/pulldown-cmark-0.9.2:pulldown_cmark",
+        "//cargo/vendor/regex-1.6.0:regex",
+        "//cargo/vendor/serde-1.0.147:serde",
+        "//cargo/vendor/serde_json-1.0.87:serde_json",
+        "//cargo/vendor/shlex-1.1.0:shlex",
+        "//cargo/vendor/tempfile-3.3.0:tempfile",
+        "//cargo/vendor/toml-0.5.9:toml",
+        "//cargo/vendor/topological-sort-0.1.0:topological_sort",
+    ],
+)
+
+# Unsupported target "alternative_backends" with type "test" omitted
+
+# Unsupported target "build_process" with type "test" omitted
+
+# Unsupported target "cli_tests" with type "test" omitted
+
+# Unsupported target "custom_preprocessors" with type "test" omitted
+
+# Unsupported target "init" with type "test" omitted
+
+# Unsupported target "parse_existing_summary_files" with type "test" omitted
+
+# Unsupported target "rendered_output" with type "test" omitted
+
+# Unsupported target "testing" with type "test" omitted

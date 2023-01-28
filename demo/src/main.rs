@@ -7,8 +7,10 @@
 // except according to those terms.
 
 use autocxx::prelude::*;
+
 include_cpp! {
-    #include "input.h"
+    //#include "blobstore.h"
+    #include "demo/include/blobstore.h"
     safety!(unsafe_ffi)
     generate!("DoMath")
     generate!("Goat")

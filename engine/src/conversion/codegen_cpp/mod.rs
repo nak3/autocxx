@@ -58,7 +58,7 @@ impl Header {
             Self::System(name) => format!("#include <{name}>"),
             Self::CxxH => {
                 let prefix = cpp_codegen_options.path_to_cxx_h.as_ref().unwrap_or(&blank);
-                format!("#include \"{prefix}cxx.h\"")
+                format!("#include \"{prefix}cxxgen.h\"")
             }
             Self::CxxgenH => {
                 let prefix = cpp_codegen_options
