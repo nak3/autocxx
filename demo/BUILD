@@ -4,7 +4,8 @@ load("//tools/bazel:rust_autocxx_bridge.bzl", "rust_autocxx_bridge")
 
 rust_binary(
     name = "autocxx-demo",
-    rustc_env = {"AUTOCXX_RS" : ".."},
+    #rustc_env = {"AUTOCXX_RS" : ".."},
+    rustc_env = {"AUTOCXX_RS_FILE" : "../gen0.include.rs"},
     srcs = [
         "src/main.rs",
         ":bridge/generated",
