@@ -20,7 +20,8 @@ def rust_autocxx_bridge(name, src, inc, deps = []):
 	    # "autocxx-ffi-default-gen.rs",
 	    "gen0.include.rs",
 	#    "autocxxgen_ffi.h",
-	    "cxx.h",
+	    "autocxxgen0.h",
+	    "cxxgen.h",
 	    "gen0.cc",
 	    "gen1.cc",
         ],
@@ -34,7 +35,7 @@ def rust_autocxx_bridge(name, src, inc, deps = []):
         copts = ["-std=c++14"],
 	srcs = ["gen0.cc", "gen1.cc"],
         #hdrs = ["include/blobstore.h", "autocxxgen_ffi.h", "cxxgen.h"],
-        hdrs = ["include/blobstore.h", "autocxxgen_ffi.h", "cxxgen.h"],
+        hdrs = ["include/blobstore.h", "autocxxgen0.h", "cxxgen.h"],
 	deps = deps,
     )
 
