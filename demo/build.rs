@@ -12,6 +12,6 @@ fn main() -> miette::Result<()> {
     b.flag_if_supported("-std=c++14").compile("autocxx-demo");
 
     println!("cargo:rerun-if-changed=src/main.rs");
-    println!("cargo:rerun-if-changed=src/input.h");
+    println!("cargo:rerun-if-changed=include/blobstore.h");
     Ok(())
 }
