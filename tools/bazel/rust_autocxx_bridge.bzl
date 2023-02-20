@@ -24,7 +24,7 @@ def rust_autocxx_bridge(name, src, inc, deps = []):
 	    #"cxxgen.h",
 	    "gen0.h",
 	    "gen0.cc",
-	    "gen1.cc",
+#	    "gen1.cc",
         ],
 
 	cmd = "$(location @autocxx.rs//:codegen) $(location %s) --inc $(location %s) --outdir $(RULEDIR) --gen-rs-include --gen-cpp --fix-rs-include-name --generate-exact 2" % (src, inc),
@@ -34,9 +34,10 @@ def rust_autocxx_bridge(name, src, inc, deps = []):
     cc_library(
         name = name,
         copts = ["-std=c++14"],
-	srcs = ["gen0.cc", "gen1.cc"],
+	#srcs = ["gen0.cc", "gen1.cc"],
+	srcs = ["gen0.cc"],
         #hdrs = ["include/blobstore.h", "autocxxgen_ffi.h", "cxxgen.h"],
-        hdrs = ["include/blobstore.h", "autocxxgen0.h", "gen0.h"],
+        hdrs = ["include/blobstore.h", "include/cxx.h", "autocxxgen0.h", "gen0.h"],
 	deps = deps,
     )
 
