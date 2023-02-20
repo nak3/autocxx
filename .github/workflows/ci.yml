@@ -150,6 +150,22 @@ jobs:
         # We do not build the LLVM example because even 'apt-get install llvm-13-dev'
         # does not work to install the LLVM 13 headers.
 
+  bazel:
+    name: Bazel
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Bazel
+        run: |
+          wget -q -O install.sh https://github.com/bazelbuild/bazel/releases/download/6.0.0/bazel-6.0.0-installer-linux-x86_64.sh
+          chmod +x install.sh
+          ./install.sh --user
+          echo $HOME/bin >> $GITHUB_PATH
+      - run: bazel run demo --verbose_failures --noshow_progress
+        #      - run: bazel test ... --verbose_failures --noshow_progress
+
   sanitizer:
     name: Address Sanitizer
     runs-on: ubuntu-latest
