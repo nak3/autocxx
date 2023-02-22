@@ -15,7 +15,7 @@ rust_binary(
     deps = [
         ":bridge",
         "//:autocxx",
-        "//third-party:cxx",
+        "//cargo:cxx",
     ],
 )
 

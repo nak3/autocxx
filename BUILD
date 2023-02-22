@@ -1,18 +1,22 @@
 load("@rules_rust//rust:defs.bzl", "rust_library", "rust_proc_macro", "rust_binary")
 
+#package(default_visibility = ["//visibility:public"])
+
 rust_library(
     name = "autocxx",
     edition = "2021",
     srcs = glob(["src/**/*.rs"]),
     data = glob(["README.md"]),
     deps = [
-        "//third-party:cxx",
-        "//third-party:moveit",
+        "//cargo:cxx",
+        "//cargo:moveit",
     ],
     visibility = ["//visibility:public"],
     proc_macro_deps = [
+        #"//cargo:autocxx",
 	":autocxx-macro",
-        "//third-party:aquamarine",
+        "//cargo:aquamarine",
+#        "//vendored/hello_cargo_library/cargo:log",
     ],
 )
 
@@ -23,10 +27,10 @@ rust_proc_macro(
     visibility = ["//visibility:public"],
     deps = [
 	":autocxx-parser",
-        "//third-party:proc-macro-error",
-        "//third-party:proc-macro2",
-        "//third-party:quote",
-        "//third-party:syn",
+        "//cargo:proc_macro_error",
+        "//cargo:proc_macro2",
+        "//cargo:quote",
+        "//cargo:syn",
     ],
 )
 
@@ -34,52 +38,61 @@ rust_library(
     name = "autocxx-parser",
     srcs = glob(["parser/src/**/*.rs"]),
     edition = "2021",
+#    visibility = ["//visibility:public"],
     deps = [
-        "//third-party:log",
-        "//third-party:proc-macro2",
-        "//third-party:quote",
-        "//third-party:serde",
-        "//third-party:thiserror",
-        "//third-party:once_cell",
-        "//third-party:itertools",
-        "//third-party:indexmap",
-        "//third-party:serde_json",
-        "//third-party:syn",
+        "//cargo:log",
+        "//cargo:proc_macro2",
+        "//cargo:quote",
+        "//cargo:serde",
+        "//cargo:thiserror",
+        "//cargo:once_cell",
+        "//cargo:itertools",
+        "//cargo:indexmap",
+        "//cargo:serde_json",
+        "//cargo:syn",
     ],
+#    crate_features = [
+#        "reproduction_case",
+#    ],
+
 )
 
+# Rename this for the features = build
 rust_library(
     name = "autocxx-engine",
-    srcs = glob(["engine/src/**/*.rs"]),
+#    srcs = glob(["engine/src/*.rs"]),
+    srcs = glob(["engine/src/**/**/**/*.rs"]),
     compile_data = glob(["**/*.md", "include/cxx.h"]),
     edition = "2021",
     visibility = ["//visibility:public"],
     crate_features = ["build"],
     deps = [
-        "//third-party:log",
-        "//third-party:proc-macro2",
-        "//third-party:quote",
-	"//third-party:autocxx-bindgen",
-        "//third-party:itertools",
-        "//third-party:cc",
-        "//third-party:cxx-gen",
+        "//cargo:log",
+        "//cargo:proc_macro2",
+        "//cargo:quote",
+	"//cargo:autocxx_bindgen",
+        "//cargo:itertools",
+        "//cargo:cc",
+        "//cargo:cxx_gen",
 	":autocxx-parser",
-        "//third-party:version_check",
-        "//third-party:tempfile",
-        "//third-party:once_cell",
-        "//third-party:serde_json",
-        "//third-party:miette",
-        "//third-party:thiserror",
-        "//third-party:regex",
-        "//third-party:indexmap",
-        "//third-party:prettyplease",
-        "//third-party:syn",
+        "//cargo:version_check",
+        "//cargo:tempfile",
+        "//cargo:once_cell",
+        "//cargo:serde_json",
+        "//cargo:miette",
+        "//cargo:thiserror",
+        "//cargo:regex",
+        "//cargo:indexmap",
+        "//cargo:prettyplease",
+        "//cargo:syn",
     ],
     proc_macro_deps = [
-        "//third-party:indoc",
-        "//third-party:aquamarine",
-        "//third-party:strum_macros",
-        "//third-party:rustversion",
+        #"//cargo:autocxx",
+        "//cargo:indoc",
+        "//cargo:aquamarine",
+        "//cargo:strum_macros",
+        "//cargo:rustversion",
+#        "//vendored/hello_cargo_library/cargo:log",
     ],
 )
 
@@ -90,23 +103,25 @@ rust_library(
     visibility = ["//visibility:public"],
     deps = [
         ":autocxx-engine",
-        "//third-party:env_logger",
-        "//third-party:indexmap",
+        "//cargo:env_logger",
+        "//cargo:indexmap",
     ],
 )
+
 
 rust_binary(
     name = "autocxx-gen",
     srcs = glob(["gen/cmd/src/**/*.rs"]),
+#    data = ["gen/cmd/src/gen/include/cxx.h"],
     edition = "2021",
     visibility = ["//visibility:public"],
     deps = [
         ":autocxx-engine",
-        "//third-party:clap",
-        "//third-party:proc-macro2",
-        "//third-party:env_logger",
-        "//third-party:pathdiff",
-        "//third-party:indexmap",
-        "//third-party:miette",
+        "//cargo:clap",
+        "//cargo:proc_macro2",
+        "//cargo:env_logger",
+        "//cargo:pathdiff",
+        "//cargo:indexmap",
+        "//cargo:miette",
     ],
 )
