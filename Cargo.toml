@@ -39,3 +39,28 @@ exclude = ["examples/s2", "examples/steam-mini", "examples/subclass", "examples/
 #cxx-gen = { path="../cxx/gen/lib" }
 #autocxx-bindgen = { path="../bindgen" }
 #moveit = { path="../moveit" }
+
+[package.metadata.raze]
+workspace_path = "//cargo"
+targets = [
+    "x86_64-unknown-linux-gnu",
+]
+output_buildfile_suffix = "BUILD.bazel"
+#gen_workspace_prefix = "vendored_autocxx_demo"
+genmode = "Vendored"
+package_aliases_dir = "cargo"
+#default_gen_buildrs = false
+
+[package.metadata.raze.crates.supports-unicode.'*']
+compile_data_attr = "glob([\"README.md\"])"
+
+[package.metadata.raze.crates.supports-hyperlinks.'*']
+compile_data_attr = "glob([\"README.md\"])"
+
+[package.metadata.raze.crates.cxx-gen.'*']
+#compile_data_attr = "glob([\"*/cxx.h\"])"
+compile_data_attr = "glob([\"src/gen/include/cxx.h\"])"
+
+[package.metadata.raze.crates.clap.'*']
+#compile_data_attr = "glob([\"*/cxx.h\"])"
+compile_data_attr = "glob([\"examples/demo.md\"])"
