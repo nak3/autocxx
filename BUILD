@@ -1,7 +1,5 @@
 load("@rules_rust//rust:defs.bzl", "rust_library", "rust_proc_macro", "rust_binary")
 
-#package(default_visibility = ["//visibility:public"])
-
 rust_library(
     name = "autocxx",
     edition = "2021",
@@ -13,10 +11,8 @@ rust_library(
     ],
     visibility = ["//visibility:public"],
     proc_macro_deps = [
-        #"//cargo:autocxx",
 	":autocxx-macro",
         "//cargo:aquamarine",
-#        "//vendored/hello_cargo_library/cargo:log",
     ],
 )
 
@@ -38,7 +34,6 @@ rust_library(
     name = "autocxx-parser",
     srcs = glob(["parser/src/**/*.rs"]),
     edition = "2021",
-#    visibility = ["//visibility:public"],
     deps = [
         "//cargo:log",
         "//cargo:proc_macro2",
@@ -51,16 +46,11 @@ rust_library(
         "//cargo:serde_json",
         "//cargo:syn",
     ],
-#    crate_features = [
-#        "reproduction_case",
-#    ],
-
 )
 
 # Rename this for the features = build
 rust_library(
     name = "autocxx-engine",
-#    srcs = glob(["engine/src/*.rs"]),
     srcs = glob(["engine/src/**/**/**/*.rs"]),
     compile_data = glob(["**/*.md", "include/cxx.h"]),
     edition = "2021",
@@ -87,12 +77,10 @@ rust_library(
         "//cargo:syn",
     ],
     proc_macro_deps = [
-        #"//cargo:autocxx",
         "//cargo:indoc",
         "//cargo:aquamarine",
         "//cargo:strum_macros",
         "//cargo:rustversion",
-#        "//vendored/hello_cargo_library/cargo:log",
     ],
 )
 
@@ -108,11 +96,9 @@ rust_library(
     ],
 )
 
-
 rust_binary(
     name = "autocxx-gen",
     srcs = glob(["gen/cmd/src/**/*.rs"]),
-#    data = ["gen/cmd/src/gen/include/cxx.h"],
     edition = "2021",
     visibility = ["//visibility:public"],
     deps = [
