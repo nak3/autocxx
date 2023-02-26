@@ -10,10 +10,7 @@ use std::path::PathBuf;
 fn main() -> miette::Result<()> {
     let mut b = autocxx_build::Builder::new(
         "src/lib.rs",
-        &[
-            PathBuf::from("/usr/include/llvm-13"),
-            PathBuf::from("/usr/include/llvm-c-13"),
-        ],
+        &PathBuf::new(),
     )
     .build()?;
 
